@@ -6,17 +6,23 @@
 
 int main()
 {
-    const char* randomString = "aaaaaaaaa";
+    const char* randomString = "aaaaaaaaa"; 
     const char* randomString2 = "bbbbbbbbb";
+    const char* randomString3 = "ccccccccc";
     String string(randomString);
-    std::cout << "\n";
-    std::cout << string.length();
-    std::cout << "\n";
+    String string2 = string;
     string.append(randomString2);
-    std::cout << "\n";
-    string.length();
+    String string3;
+    string3 = string2;
+    string3.append(randomString3);
+    String string4 = std::move(string3);
     std::cout << string.c_str();
-    std::cout << string.length();
+    std::cout << string2.c_str();
+    //std::cout << string3.c_str();
+    std::cout << string4.c_str();
+    string3 = std::move(string4);
+    std::cout << string3.c_str();
+    //std::cout << string4.c_str();
 }
 
 // Programm ausführen: STRG+F5 oder Menüeintrag "Debuggen" > "Starten ohne Debuggen starten"
