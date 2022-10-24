@@ -7,22 +7,22 @@ String::String(const char* givenString) {
 }
 
 void String::append(const char* stringToAppend) {
-	int newStringLength = strlen(string) + strlen(stringToAppend) + 1;
+	size_t newStringLength = strlen(string) + strlen(stringToAppend) + 1;
 	char* temp = new char[newStringLength];
 	strcpy_s(temp, newStringLength, string);
-	std::cout << temp;
-	std::cout << strlen(string);
-	std::cout << strlen(stringToAppend);
 	strcat_s(temp, newStringLength, stringToAppend);
 	string = temp;
-	free(temp);
+	std::cout << string;
 }
 
-int String::length() {
+size_t String::length() {
 	return strlen(string);
 }
 
 const char* String::c_str() {
-	std::cout << *string;
 	return this->string;
+}
+
+ String:: ~String() {
+	 delete[] string;
 }

@@ -9,8 +9,11 @@ int main()
     const char* randomString = "aaaaaaaaa";
     const char* randomString2 = "bbbbbbbbb";
     String string(randomString);
+    std::cout << "\n";
     std::cout << string.length();
+    std::cout << "\n";
     string.append(randomString2);
+    std::cout << "\n";
     string.length();
     std::cout << string.c_str();
     std::cout << string.length();
