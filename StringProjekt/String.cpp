@@ -46,6 +46,18 @@ String& String::operator= (String&& rhs) {
 	return *this;
 }
 
+String& String::operator+=(const String& rhs)
+{
+	if (this != &rhs) {
+
+	}
+}
+
+String& String::operator+=(const char* rhs)
+{
+	// TODO: hier return-Anweisung eingeben
+}
+
 void String::append(const char* stringToAppend) {
 	size_t newStringLength = strlen(string) + strlen(stringToAppend) + 1;
 	char* temp = new char[newStringLength];

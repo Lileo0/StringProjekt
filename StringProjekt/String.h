@@ -8,6 +8,9 @@ public:
 	String(String&& string);
 	String& operator=(const String& rhs);
 	String& operator=(String&& rhs);
+	String& operator+=(const String& rhs);
+	String& operator+=(const char* rhs);
+	String& operator+(const String& rhs);
 	void append(const char* stringToAppend);
 	size_t length();
 	const char* c_str();
