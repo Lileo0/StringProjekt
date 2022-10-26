@@ -106,6 +106,7 @@ void String::append(const String& stringToAppend) {
 		char* temp = new char[newStringLength];
 		strcpy_s(temp, newStringLength, string);
 		strcat_s(temp, newStringLength, stringToAppend.string);
+		delete[] string; // obsolete?
 		string = temp;
 	}
 	else {
