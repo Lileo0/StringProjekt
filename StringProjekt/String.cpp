@@ -63,18 +63,40 @@ String& String::operator+=(const char* rhs)
 	return *this;
 }
 
-String& String::operator+(const String& rhs)
+char* String::operator+(const String& rhs)
 {
 	// TODO: hier return-Anweisung eingeben
-	this->append(rhs.string);
-	return *this;
+	size_t newStringLength = strlen(rhs.string) + 1;
+	if (this->string != nullptr) {
+		newStringLength += strlen(string);
+		char* temp = new char[newStringLength];
+		strcpy_s(temp, newStringLength, string);
+		strcat_s(temp, newStringLength, rhs.string);
+		return temp;
+	}
+	else {
+		char* temp = new char[newStringLength];
+		strcpy_s(temp, newStringLength, rhs.string);
+		return temp;
+	}
 }
 
-String& String::operator+(const char* rhs)
+char* String::operator+(const char* rhs)
 {
 	// TODO: hier return-Anweisung eingeben
-	this->append(rhs);
-	return *this;
+	size_t newStringLength = strlen(rhs) + 1;
+	if (this->string != nullptr) {
+		newStringLength += strlen(string);
+		char* temp = new char[newStringLength];
+		strcpy_s(temp, newStringLength, string);
+		strcat_s(temp, newStringLength, rhs);
+		return temp;
+	}
+	else {
+		char* temp = new char[newStringLength];
+		strcpy_s(temp, newStringLength, rhs);
+		return temp;
+	}
 }
 
 void String::append(const String& stringToAppend) {

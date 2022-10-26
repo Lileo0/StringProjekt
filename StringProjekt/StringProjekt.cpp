@@ -9,10 +9,15 @@ int main()
     String s1("Hello");
     const String s2("World");
     s1 += s2;
+    std::cout << s1.c_str() << std::endl;
     String s3 = s1 + s2;
+    std::cout << s1.c_str() << std::endl;
+    std::cout << s3.c_str() << std::endl;
     s3 += "Hello";
+    std::cout << s3.c_str() << std::endl;
     String s4 = s3 + "World";
-    std::cout << s4.c_str();
+    std::cout << s4.c_str() << std::endl;
+    std::cout << s3.c_str() << std::endl;
 }
 
 // Programm ausführen: STRG+F5 oder Menüeintrag "Debuggen" > "Starten ohne Debuggen starten"

@@ -10,8 +10,8 @@ public:
 	String& operator=(String&& rhs);
 	String& operator+=(const String& rhs);
 	String& operator+=(const char* rhs);
-	String& operator+(const String& rhs);
-	String& operator+(const char* rhs);
+	char* operator+(const String& rhs);
+	char* operator+(const char* rhs);
 	void append(const String& stringToAppend);
 	size_t length();
 	const char* c_str();
@@ -20,4 +20,3 @@ public:
 private:
 	const char* string ;
 };
-
