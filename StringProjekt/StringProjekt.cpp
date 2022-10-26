@@ -6,12 +6,13 @@
 
 int main()
 {
-    const char* randomString = "Hello";
-    const char* randomString = "World";
     String s1("Hello");
-    String s2("World");
-    //s1.append(s2);
-    //std::cout << s1.c_str();
+    const String s2("World");
+    s1 += s2;
+    String s3 = s1 + s2;
+    s3 += "Hello";
+    String s4 = s3 + "World";
+    std::cout << s4.c_str();
 }
 
 // Programm ausführen: STRG+F5 oder Menüeintrag "Debuggen" > "Starten ohne Debuggen starten"

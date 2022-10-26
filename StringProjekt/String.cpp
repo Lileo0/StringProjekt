@@ -7,8 +7,10 @@ String::String() {
 }
 
 String::String(const char* givenString) { //Sollte const sein?
-	string = new char[strlen(givenString)+1];
-	string = givenString;
+	size_t newStringLength = strlen(givenString) + 1;
+	char* temp = new char[newStringLength];
+	strcpy_s(temp, newStringLength, givenString);
+	string = temp;
 }
 
 String::String(const String& other)
@@ -50,36 +52,46 @@ String& String::operator= (String&& rhs) {
 
 String& String::operator+=(const String& rhs)
 {
-	if (this != &rhs) {
-		size_t newStringLength = strlen(rhs.string) + 1;
-		if (this->string) {
-			/*newStringLength += strlen(this->string);
-			char* temp = new char[newStringLength];
-			strcpy_s(temp, newStringLength,this->string);
-			strcat_s(temp, newStringLength,rhs.string);
-			this->string += temp;*/
-			this->append(rhs);
-		}
-		else {
-			string = new char[newStringLength];
-			string = rhs.string;
-		}
-	}
+	this->append(rhs);
 	return *this;
 }
 
 String& String::operator+=(const char* rhs)
 {
 	// TODO: hier return-Anweisung eingeben
+	this->append(rhs);
+	return *this;
+}
+
+String& String::operator+(const String& rhs)
+{
+	// TODO: hier return-Anweisung eingeben
+	this->append(rhs.string);
+	return *this;
+}
+
+String& String::operator+(const char* rhs)
+{
+	// TODO: hier return-Anweisung eingeben
+	this->append(rhs);
 	return *this;
 }
 
 void String::append(const String& stringToAppend) {
-	size_t newStringLength = strlen(string) + strlen(stringToAppend.string) + 1;
-	char* temp = new char[newStringLength];
-	strcpy_s(temp, newStringLength, string);
-	strcat_s(temp, newStringLength, stringToAppend.string);
-	string = temp;
+	size_t newStringLength = strlen(stringToAppend.string) + 1;
+	if (this->string != nullptr) {
+		newStringLength += strlen(string);
+		char* temp = new char[newStringLength];
+		strcpy_s(temp, newStringLength, string);
+		strcat_s(temp, newStringLength, stringToAppend.string);
+		string = temp;
+	}
+	else {
+		char* temp = new char[newStringLength];
+		strcpy_s(temp, newStringLength, stringToAppend.string);
+		string = temp;
+	}
+
 }
 
 size_t String::length() {
