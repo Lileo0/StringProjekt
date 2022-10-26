@@ -51,11 +51,13 @@ String& String::operator+=(const String& rhs)
 	if (this != &rhs) {
 
 	}
+	return *this;
 }
 
 String& String::operator+=(const char* rhs)
 {
 	// TODO: hier return-Anweisung eingeben
+	return *this;
 }
 
 void String::append(const char* stringToAppend) {
