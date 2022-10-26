@@ -11,7 +11,7 @@ public:
 	String& operator+=(const String& rhs);
 	String& operator+=(const char* rhs);
 	String& operator+(const String& rhs);
-	void append(const char* stringToAppend);
+	void append(const String& stringToAppend);
 	size_t length();
 	const char* c_str();
 	~String();

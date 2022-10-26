@@ -1,11 +1,13 @@
 #include "String.h"
 #include <iostream>
+#include <initializer_list>
 
 String::String() {
 	this->string = nullptr;
 }
 
 String::String(const char* givenString) { //Sollte const sein?
+	string = new char[strlen(givenString)+1];
 	string = givenString;
 }
 
@@ -49,20 +51,34 @@ String& String::operator= (String&& rhs) {
 String& String::operator+=(const String& rhs)
 {
 	if (this != &rhs) {
-
+		size_t newStringLength = strlen(rhs.string) + 1;
+		if (this->string) {
+			/*newStringLength += strlen(this->string);
+			char* temp = new char[newStringLength];
+			strcpy_s(temp, newStringLength,this->string);
+			strcat_s(temp, newStringLength,rhs.string);
+			this->string += temp;*/
+			this->append(rhs);
+		}
+		else {
+			string = new char[newStringLength];
+			string = rhs.string;
+		}
 	}
+	return *this;
 }
 
 String& String::operator+=(const char* rhs)
 {
 	// TODO: hier return-Anweisung eingeben
+	return *this;
 }
 
-void String::append(const char* stringToAppend) {
-	size_t newStringLength = strlen(string) + strlen(stringToAppend) + 1;
+void String::append(const String& stringToAppend) {
+	size_t newStringLength = strlen(string) + strlen(stringToAppend.string) + 1;
 	char* temp = new char[newStringLength];
 	strcpy_s(temp, newStringLength, string);
-	strcat_s(temp, newStringLength, stringToAppend);
+	strcat_s(temp, newStringLength, stringToAppend.string);
 	string = temp;
 }
 
