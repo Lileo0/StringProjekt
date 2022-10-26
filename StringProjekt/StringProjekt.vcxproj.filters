@@ -26,5 +26,8 @@
     <ClInclude Include="String.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="doctest.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

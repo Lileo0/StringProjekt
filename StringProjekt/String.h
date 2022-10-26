@@ -16,7 +16,8 @@ public:
 	size_t length();
 	const char* c_str();
 	~String();
-
+	operator const char* () const { return string; };
 private:
 	const char* string ;
+	char* add(const char* rhs);
 };

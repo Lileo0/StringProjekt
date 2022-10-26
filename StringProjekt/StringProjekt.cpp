@@ -3,22 +3,24 @@
 
 #include <iostream>
 #include "String.h"
+//#include "doctest.h"
 
 int main()
 {
-    String s1("Hello");
-    const String s2("World");
-    s1 += s2;
-    std::cout << s1.c_str() << std::endl;
-    String s3 = s1 + s2;
-    std::cout << s1.c_str() << std::endl;
-    std::cout << s3.c_str() << std::endl;
-    s3 += "Hello";
-    std::cout << s3.c_str() << std::endl;
-    String s4 = s3 + "World";
-    std::cout << s4.c_str() << std::endl;
-    std::cout << s3.c_str() << std::endl;
+	String s1("Hello");
+	const String s2("World");
+	s1 += s2;
+	String s3 = s1 + s2;
+	s3 += "Hello";
+	const String s4 = s3 + "World";
+	puts(s4);
 }
+/*TEST_CASE("Test String Append") {
+	String string1("Hello");
+	String string2("World");
+	string1.append(string2);
+	CHECK(string1.c_str() == "HelloWorld");
+}*/
 
 // Programm ausführen: STRG+F5 oder Menüeintrag "Debuggen" > "Starten ohne Debuggen starten"
 // Programm debuggen: F5 oder "Debuggen" > Menü "Debuggen starten"
