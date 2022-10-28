@@ -53,6 +53,9 @@ String& String::operator= (String&& rhs) { //move assignment
 String& String::operator+=(const String& rhs)
 {
 	this->append(rhs);
+	if (this != &rhs) {
+
+	}
 	return *this;
 }
 
@@ -60,6 +63,7 @@ String& String::operator+=(const char* rhs)
 {
 	// TODO: hier return-Anweisung eingeben
 	this->append(rhs);
+
 	return *this;
 }
 
