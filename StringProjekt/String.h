@@ -15,9 +15,22 @@ public:
 	void append(const String& stringToAppend);
 	size_t length();
 	const char* c_str();
+	const char* begin();
+	const char* end();
 	~String();
 	operator const char* () const { return string; };
+	class Iterator 
+	{
+	public:
+		void operator=(const char* pointer);//*  removed
+		void operator++();
+		const char* getAdress();//*  removed
+
+	private:
+		const char* currentAdress = nullptr;//*  removed
+	};
 private:
 	const char* string ;
 	char* add(const char* rhs);
 };
+

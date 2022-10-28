@@ -10,10 +10,21 @@ int main()
 	String s1("Hello");
 	const String s2("World");
 	s1 += s2;
-	String s3 = s1 + s2;
-	s3 += "Hello";
-	const String s4 = s3 + "World";
-	puts(s4);
+	it = s1.begin();
+	++it;
+	++it;
+	//std::cout << s1.c_str() << std::endl;
+	std::cout << s1.begin() << std::endl;
+	std::cout << *s1.begin() << std::endl;
+	std::cout << s1.end() << std::endl;
+	std::cout << *s1.end() << std::endl;
+	const char* currentAdress = it.getAdress();
+	std::cout << currentAdress << std::endl;
+	std::cout << *currentAdress << std::endl;
+	std::cout << &currentAdress << std::endl;
+	const String test("Hello World");
+	for (String::Iterator it = test.begin(); it != test.end(); ++it) { std::cout << *it << '\n'; }
+	std::cout << (std::find(test.begin(), test.end(), 'W') != test.end()) << '\n';
 }
 /*TEST_CASE("Test String Append") {
 	String string1("Hello");

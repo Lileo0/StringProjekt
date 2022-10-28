@@ -116,6 +116,39 @@ const char* String::c_str() {
 	return this->string;
 }
 
+const char* String::begin()
+{
+	const char* pointer = &this->string[0];
+	return pointer;
+}
+const char* String::end()
+{
+	
+	int i = 0;
+	while (this->string[i] != '\0') {
+		i++;
+	}
+	const char* pointer = &this->string[i-1];
+	//std::cout << pointer + i - 1 << std::endl;
+	return pointer;
+}
+
  String:: ~String() {
 	 delete[] string;
 }
+
+ void String::Iterator::operator=(const char* pointer)
+ {
+	 this->currentAdress = pointer;
+ }
+
+ void String::Iterator::operator++()
+ {
+	 // TODO: hier return-Anweisung eingeben
+	 this->currentAdress++;
+ }
+
+ const char* String::Iterator::getAdress()
+ {
+	 return this->currentAdress;
+ }
