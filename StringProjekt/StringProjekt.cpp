@@ -3,28 +3,22 @@
 
 #include <iostream>
 #include "String.h"
-//#include "doctest.h"
+#include "doctest.h"
 
 int main()
 {
 	String s1("Hello");
 	const String s2("World");
 	s1 += s2;
-	it = s1.begin();
-	++it;
-	++it;
+	String::Iterator it = s1.end();
+	String::Iterator it2 = s1.begin();
+	for (String::Iterator it2 = s1.begin(); it2 != s1.end(); ++it2) {
+		std::cout << *it2;
+	}
+
+
 	//std::cout << s1.c_str() << std::endl;
-	std::cout << s1.begin() << std::endl;
-	std::cout << *s1.begin() << std::endl;
-	std::cout << s1.end() << std::endl;
-	std::cout << *s1.end() << std::endl;
-	const char* currentAdress = it.getAdress();
-	std::cout << currentAdress << std::endl;
-	std::cout << *currentAdress << std::endl;
-	std::cout << &currentAdress << std::endl;
-	const String test("Hello World");
-	for (String::Iterator it = test.begin(); it != test.end(); ++it) { std::cout << *it << '\n'; }
-	std::cout << (std::find(test.begin(), test.end(), 'W') != test.end()) << '\n';
+
 }
 /*TEST_CASE("Test String Append") {
 	String string1("Hello");

@@ -120,39 +120,86 @@ const char* String::c_str() {
 	return this->string;
 }
 
-const char* String::begin()
+String::Iterator String::begin()
 {
-	const char* pointer = &this->string[0];
-	return pointer;
+	String::Iterator it = &this->string[0];
+	return it;
 }
-const char* String::end()
+String::Iterator String::end()
 {
 	
 	int i = 0;
 	while (this->string[i] != '\0') {
 		i++;
 	}
-	const char* pointer = &this->string[i-1];
+	String::Iterator it = &this->string[i];
 	//std::cout << pointer + i - 1 << std::endl;
-	return pointer;
+	return it;
 }
 
  String:: ~String() {
 	 delete[] string;
 }
 
- void String::Iterator::operator=(const char* pointer)
+ String::Iterator& String::Iterator::operator=(const char* pointer)
  {
 	 this->currentAdress = pointer;
+	 return *this;
  }
 
  void String::Iterator::operator++()
  {
 	 // TODO: hier return-Anweisung eingeben
-	 this->currentAdress++;
+	 ++this->currentAdress;
  }
+
+ void String::Iterator::operator--()
+ {
+	 --this->currentAdress;
+ }
+
+ bool String::Iterator::operator==(const Iterator it)
+ {
+	 if (this->currentAdress == it.currentAdress) {
+		 return true;
+	 }
+	 else {
+		 return false;
+	 }
+ }
+
+ bool String::Iterator::operator!=(const Iterator it)
+ {
+	 if (this->currentAdress != it.currentAdress) {
+		 return true;
+	 }
+	 else {
+		 return false;
+	 }
+ }
+
+ const char& String::Iterator::operator*()
+ {
+	 return *this->currentAdress;
+ }
+
+ const char* String::Iterator::operator->()
+ {
+	 return getAdress();
+ }
+
+
 
  const char* String::Iterator::getAdress()
  {
 	 return this->currentAdress;
+ }
+
+ String::Iterator::Iterator(const char* adress)
+ {
+	 this->currentAdress = adress;
+ }
+ String::Iterator::Iterator(const String::Iterator& it)
+ {
+	 *this = it;
  }
