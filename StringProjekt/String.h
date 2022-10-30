@@ -16,6 +16,7 @@ public:
 	size_t length();
 	const char* c_str();
 	~String();
+	operator const char* () { return this->string; };
 	class Iterator 
 	{
 	public:
@@ -29,6 +30,7 @@ public:
 		const char& operator*();
 		const char* operator->();
 		const char* getAdress();//*  removed
+		operator  const char*() const{ return this->currentAdress; };
 
 	private:
 		const char* currentAdress = nullptr;//*  removed

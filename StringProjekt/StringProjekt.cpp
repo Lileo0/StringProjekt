@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include "String.h"
-#include "doctest.h"
+//#include "doctest.h"
 
 int main()
 {
@@ -15,6 +15,7 @@ int main()
 	for (String::Iterator it2 = s1.begin(); it2 != s1.end(); ++it2) {
 		std::cout << *it2;
 	}
+	std::cout<< (std::find(s1.begin().getAdress(), s1.end().getAdress(), 'Q') != s1.end().getAdress());
 
 
 	//std::cout << s1.c_str() << std::endl;
