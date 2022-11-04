@@ -22,7 +22,7 @@ String::String(const String& other) //copyconstructor
 	int newStringLength = length(other.string) + 1;
 	char* temp = new char[newStringLength];
 	this->string = new char[newStringLength];
-	strcpy_s(temp, newStringLength,other.string);
+	stringcpy(temp, newStringLength,other.string);
 	this->string = temp;
 }
 
@@ -33,7 +33,7 @@ String& String::operator= (const String& rhs){ //copyassignment
 		if (this->string)
 		delete[] this->string;
 		this->string = new char[newStringLength];
-		strcpy_s(temp, newStringLength, rhs.string);
+		stringcpy(temp, newStringLength, rhs.string);
 		this->string = temp;
 	}
 	return *this;
@@ -84,14 +84,12 @@ char* String::operator+(const char* rhs)
 void String::stringcpy(char* destination, int length,const char* content)
 {
 	if (content == nullptr) return;
-	//char* temp = new char[length-1];
 	int i = 0;
 	while (content[i] != '\0') {
 		destination[i] = content[i];
 		++i;
 	}
 	destination[i] = '\0';
-	//destination = temp;
 }
 
 void String::stringcat(char* destination, int length,const char* content)
@@ -122,7 +120,7 @@ void String::append(const String& stringToAppend) {
 	}
 	else {
 		char* temp = new char[newStringLength];
-		strcpy_s(temp, newStringLength, stringToAppend.string);
+		stringcpy(temp, newStringLength, stringToAppend.string);
 		string = temp;
 	}
 }
@@ -138,7 +136,7 @@ char* String::add(const char* rhs) {
 	}
 	else {
 		char* temp = new char[newStringLength];
-		strcpy_s(temp, newStringLength, rhs);
+		stringcpy(temp, newStringLength, rhs);
 		return temp;
 	}
 }
@@ -176,7 +174,6 @@ String::Iterator String::end()
 	while (this->string[i] != '\0') {
 		i++;
 	}
-	//std::cout << pointer + i - 1 << std::endl;
 	return Iterator(&this->string[i]);;
 }
 
@@ -187,7 +184,6 @@ String::Iterator String::end()
 
  void String::Iterator::operator++()
  {
-	 // TODO: hier return-Anweisung eingeben
 	 ++this->pter;
  }
 
