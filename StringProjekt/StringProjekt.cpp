@@ -35,8 +35,10 @@ TEST_CASE("String length") {
 	String string1("Hello");
 	String string2("World");
 	string1.append(string2);
-	CHECK(string1.length(string1.c_str()) == 10);
-	CHECK(string2.length(string2.c_str()) == 5);
+	std::cout << string1.length(string1.c_str());
+	std::cout << string1.c_str();
+ 	CHECK(string1.length(string1.c_str()) == strlen(string1.c_str()));
+	CHECK(string2.length(string2.c_str()) == strlen(string2.c_str()));
 }
 
 TEST_CASE("String Adress after append") {
@@ -92,6 +94,11 @@ TEST_CASE("Sprint 4") {
 		CHECK(false);
 	}
 	//CHECK(std::find(test.begin(), test.end(), 'W') != test.end());
+}
+
+TEST_CASE("Sprint 4") {
+	String test = "Hello";
+	String test2 = test + "world";
 }
 
 /*TEST_CASE("Const tests") {

@@ -12,9 +12,9 @@ String::String() {
 }
 
 String::String(const char* givenString) { //Sollte const sein?
-	size_t newStringLength = length(givenString) + 1;
+	int newStringLength = length(givenString) + 1;
 	char* temp = new char[newStringLength];
-	strcpy_s(temp, newStringLength, givenString);
+	stringcpy(temp, newStringLength, givenString);
 	string = temp;
 }
 
@@ -84,12 +84,34 @@ char* String::operator+(const char* rhs)
 	return add(rhs);
 }
 
+void String::stringcpy(char* destination, int length,const char* content)
+{
+	if (content == nullptr) return;
+	//char* temp = new char[length-1];
+	int i = 0;
+	while (content[i] != '\0') {
+		destination[i] = content[i];
+		++i;
+	}
+	destination[i] = '\0';
+	//destination = temp;
+}
+
+void String::stringcat(char* destination, int length, char* content)
+{
+	if (content == nullptr) return;
+	int i = 0;
+	while (destination[i] != '\0') {
+		i++;
+	}
+}
+
 void String::append(const String& stringToAppend) {
 	size_t newStringLength = length(stringToAppend.string) + 1;
 	if (this->string != nullptr) {
 		newStringLength += length(string);
 		char* temp = new char[newStringLength];
-		strcpy_s(temp, newStringLength, string);
+		stringcpy(temp, newStringLength, string);
 		strcat_s(temp, newStringLength, stringToAppend.string);
 		delete[] string; // obsolete?
 		string = temp;
@@ -120,6 +142,16 @@ char* String::add(const char* rhs) {
 int String::length(const char* toLength) {
 	int i = 0;
 	while (toLength[i] != '\0') {
+		i++;
+	}
+	return i;
+}
+
+int String::olength()
+{
+	if (this->string == nullptr) return 0;
+	int i = 0;
+	while (this->string[i] != '\0') {
 		i++;
 	}
 	return i;

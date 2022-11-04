@@ -14,8 +14,13 @@ public:
 	String& operator+=(const char* rhs);
 	char* operator+(const String& rhs);
 	char* operator+(const char* rhs);
+
+	void stringcpy(char* destination,int length, const char* content);
+	void stringcat(char* destination,int length, char* content);
+
 	void append(const String& stringToAppend);
 	int length(const char* toLength);
+	int olength();
 	const char* c_str();
 	~String();
 	operator const char* () { return this->string; };
