@@ -1,6 +1,11 @@
 #include "String.h"
 #include <iostream>
 #include <initializer_list>
+using iterator_category = std::forward_iterator_tag;
+using difference_type = std::ptrdiff_t;
+using value_type = const char;
+using pointer = const char*;  // or also value_type*
+using reference = const char&;  // or also value_type&
 
 String::String() {
 	this->string = nullptr;
@@ -122,8 +127,7 @@ const char* String::c_str() {
 
 String::Iterator String::begin()
 {
-	String::Iterator it = &this->string[0];
-	return it;
+	return Iterator(&this->string[0]);
 }
 String::Iterator String::end()
 {
@@ -132,35 +136,29 @@ String::Iterator String::end()
 	while (this->string[i] != '\0') {
 		i++;
 	}
-	String::Iterator it = &this->string[i];
 	//std::cout << pointer + i - 1 << std::endl;
-	return it;
+	return Iterator(&this->string[i]);;
 }
 
  String:: ~String() {
 	 delete[] string;
 }
 
- String::Iterator& String::Iterator::operator=(const char* pointer)
- {
-	 this->currentAdress = pointer;
-	 return *this;
- }
 
  void String::Iterator::operator++()
  {
 	 // TODO: hier return-Anweisung eingeben
-	 ++this->currentAdress;
+	 ++this->pter;
  }
 
  void String::Iterator::operator--()
  {
-	 --this->currentAdress;
+	 --this->pter;
  }
 
  bool String::Iterator::operator==(const Iterator it)
  {
-	 if (this->currentAdress == it.currentAdress) {
+	 if (this->pter == it.pter) {
 		 return true;
 	 }
 	 else {
@@ -168,9 +166,9 @@ String::Iterator String::end()
 	 }
  }
 
- bool String::Iterator::operator!=(const Iterator it)
+ bool String::Iterator::operator!=(const Iterator rhs)
  {
-	 if (this->currentAdress != it.currentAdress) {
+	 if (this->pter != rhs.pter) {
 		 return true;
 	 }
 	 else {
@@ -178,10 +176,12 @@ String::Iterator String::end()
 	 }
  }
 
- const char& String::Iterator::operator*()
+ reference String::Iterator::operator*()
  {
-	 return *this->currentAdress;
+	return *this->pter;
  }
+
+ 
 
  const char* String::Iterator::operator->()
  {
@@ -192,14 +192,5 @@ String::Iterator String::end()
 
  const char* String::Iterator::getAdress()
  {
-	 return this->currentAdress;
- }
-
- String::Iterator::Iterator(const char* adress)
- {
-	 this->currentAdress = adress;
- }
- String::Iterator::Iterator(const String::Iterator& it)
- {
-	 *this = it;
+	 return this->pter;
  }

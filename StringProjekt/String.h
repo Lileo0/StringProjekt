@@ -1,5 +1,7 @@
 #pragma once
-class String
+#include <iterator>     // std::iterator, std::input_iterator_tag
+#include <cstddef>  // For std::ptrdiff_t
+class String 
 {
 public:
 	String();
@@ -20,24 +22,32 @@ public:
 	class Iterator 
 	{
 	public:
-		Iterator(const char* adress);
-		Iterator(const Iterator& it);
+		using iterator_category = std::forward_iterator_tag;
+		using difference_type = std::ptrdiff_t;
+		using value_type = const char;
+		using pointer = const char*;  // or also value_type*
+		using reference = const char&;  // or also value_type&
+
+		Iterator(pointer ptr) : pter(ptr) {}
+
 		Iterator& operator=(const char* pointer);//*  removed
 		void operator++();
 		void operator--();
 		bool operator==(const Iterator it);
 		bool operator!=(const Iterator it);
-		const char& operator*();
+		reference operator*();
 		const char* operator->();
 		const char* getAdress();//*  removed
-		operator  const char*() const{ return this->currentAdress; };
+
+		operator const char* () { return this->pter; };
 
 	private:
-		const char* currentAdress = nullptr;//*  removed
+		pointer pter;//*  removed
 	};
 	String::Iterator begin();
 	String::Iterator end();
 private:
+	using iterator_category = std::forward_iterator_tag;
 	const char* string ;
 	char* add(const char* rhs);
 };
