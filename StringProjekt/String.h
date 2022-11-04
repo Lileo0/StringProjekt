@@ -6,24 +6,29 @@ class String
 public:
 	String();
 	String(const char* givenString);
-	String(const String& string);
-	String(String&& string);
-	String& operator=(const String& rhs);
-	String& operator=(String&& rhs);
+	~String();
+
+	String(const String& string);//Copy Constructor
+	String(String&& string)noexcept;//Move Constructor
+	String& operator=(const String& rhs); //Copyassignment
+	String& operator=(String&& rhs)noexcept; //Moveassignment
+
 	String& operator+=(const String& rhs);
 	String& operator+=(const char* rhs);
 	char* operator+(const String& rhs);
 	char* operator+(const char* rhs);
+	operator const char* () { return this->string; };
 
 	void stringcpy(char* destination,int length, const char* content);
-	void stringcat(char* destination,int length, char* content);
+	void stringcat(char* destination,int length, const char* content);
 
 	void append(const String& stringToAppend);
 	int length(const char* toLength);
 	int olength();
 	const char* c_str();
-	~String();
-	operator const char* () { return this->string; };
+
+
+
 	class Iterator 
 	{
 	public:
@@ -53,7 +58,7 @@ public:
 	String::Iterator end();
 private:
 	using iterator_category = std::forward_iterator_tag;
-	const char* string ;
+	char* string ;
 	char* add(const char* rhs);
 };
 

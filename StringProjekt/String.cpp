@@ -1,6 +1,5 @@
 #include "String.h"
-#include <iostream>
-#include <initializer_list>
+
 using iterator_category = std::forward_iterator_tag;
 using difference_type = std::ptrdiff_t;
 using value_type = const char;
@@ -20,7 +19,7 @@ String::String(const char* givenString) { //Sollte const sein?
 
 String::String(const String& other) //copyconstructor
 {
-	size_t newStringLength = length(other.string) + 1;
+	int newStringLength = length(other.string) + 1;
 	char* temp = new char[newStringLength];
 	this->string = new char[newStringLength];
 	strcpy_s(temp, newStringLength,other.string);
@@ -40,12 +39,12 @@ String& String::operator= (const String& rhs){ //copyassignment
 	return *this;
 }
 
-String::String(String&& other) { //move constructor
+String::String(String&& other)noexcept { //move constructor
 	this->string = other.string;
 	other.string = nullptr;
 }
 
-String& String::operator= (String&& rhs) { //move assignment
+String& String::operator= (String&& rhs)noexcept { //move assignment
 	if (this != &rhs) {
 		if(this->string)
 		delete[] this->string;
@@ -56,17 +55,15 @@ String& String::operator= (String&& rhs) { //move assignment
 }
 
 String& String::operator+=(const String& rhs)
-{
-	this->append(rhs);
+{	
 	if (this != &rhs) {
-
+		this->append(rhs);
 	}
 	return *this;
 }
 
 String& String::operator+=(const char* rhs)
 {
-	// TODO: hier return-Anweisung eingeben
 	this->append(rhs);
 
 	return *this;
@@ -97,22 +94,29 @@ void String::stringcpy(char* destination, int length,const char* content)
 	//destination = temp;
 }
 
-void String::stringcat(char* destination, int length, char* content)
+void String::stringcat(char* destination, int length,const char* content)
 {
 	if (content == nullptr) return;
 	int i = 0;
+	int j = 0;
 	while (destination[i] != '\0') {
 		i++;
 	}
+	while (content[j] != '\0') {
+		destination[i] = content[j];
+		++j;
+		++i;
+	}
+	destination[i] = '\0';	
 }
 
 void String::append(const String& stringToAppend) {
-	size_t newStringLength = length(stringToAppend.string) + 1;
+	int newStringLength = length(stringToAppend.string) + 1;
 	if (this->string != nullptr) {
 		newStringLength += length(string);
 		char* temp = new char[newStringLength];
 		stringcpy(temp, newStringLength, string);
-		strcat_s(temp, newStringLength, stringToAppend.string);
+		stringcat(temp, newStringLength, stringToAppend.string);
 		delete[] string; // obsolete?
 		string = temp;
 	}
@@ -124,12 +128,12 @@ void String::append(const String& stringToAppend) {
 }
 
 char* String::add(const char* rhs) {
-	size_t newStringLength = length(rhs) + 1;
+	int newStringLength = length(rhs) + 1;
 	if (this->string != nullptr) {
 		newStringLength += length(string);
 		char* temp = new char[newStringLength];
-		strcpy_s(temp, newStringLength, string);
-		strcat_s(temp, newStringLength, rhs);
+		stringcpy(temp, newStringLength, this->string);
+		stringcat(temp, newStringLength, rhs);
 		return temp;
 	}
 	else {
