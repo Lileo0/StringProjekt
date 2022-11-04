@@ -35,8 +35,8 @@ TEST_CASE("String length") {
 	String string1("Hello");
 	String string2("World");
 	string1.append(string2);
-	CHECK(string1.length() == 10);
-	CHECK(string2.length() == 5);
+	CHECK(string1.length(string1.c_str()) == 10);
+	CHECK(string2.length(string2.c_str()) == 5);
 }
 
 TEST_CASE("String Adress after append") {
@@ -45,12 +45,6 @@ TEST_CASE("String Adress after append") {
 	const char* oldAdress = string1.c_str();
 	string1.append(string2);
 	CHECK(string1.c_str() != oldAdress);
-}
-
-TEST_CASE("Destructor") {
-	String string1("Hello");
-	const char* oldAdress = string1.c_str();
-	delete[] string1;
 }
 
 TEST_CASE("copy assignment and constructor") {
@@ -87,7 +81,7 @@ TEST_CASE("Operator +, operator += and conversion function") {
 	CHECK(true);
 }
 
-/*TEST_CASE("Sprint 4") {
+TEST_CASE("Sprint 4") {
 	// Iteratoren
 	String test("Hello World"); //Const removed
 	for (String::Iterator it = test.begin(); it != test.end(); ++it) { std::cout << *it << '\n'; }
@@ -98,7 +92,7 @@ TEST_CASE("Operator +, operator += and conversion function") {
 		CHECK(false);
 	}
 	//CHECK(std::find(test.begin(), test.end(), 'W') != test.end());
-}*/
+}
 
 /*TEST_CASE("Const tests") {
 	String testString1("Hello");

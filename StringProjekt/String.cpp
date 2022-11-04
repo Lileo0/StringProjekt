@@ -12,7 +12,7 @@ String::String() {
 }
 
 String::String(const char* givenString) { //Sollte const sein?
-	size_t newStringLength = strlen(givenString) + 1;
+	size_t newStringLength = length(givenString) + 1;
 	char* temp = new char[newStringLength];
 	strcpy_s(temp, newStringLength, givenString);
 	string = temp;
@@ -20,7 +20,7 @@ String::String(const char* givenString) { //Sollte const sein?
 
 String::String(const String& other) //copyconstructor
 {
-	size_t newStringLength = strlen(other.string) + 1;
+	size_t newStringLength = length(other.string) + 1;
 	char* temp = new char[newStringLength];
 	this->string = new char[newStringLength];
 	strcpy_s(temp, newStringLength,other.string);
@@ -28,7 +28,7 @@ String::String(const String& other) //copyconstructor
 }
 
 String& String::operator= (const String& rhs){ //copyassignment
-	size_t newStringLength = strlen(rhs.string) + 1;
+	size_t newStringLength = length(rhs.string) + 1;
 	char* temp = new char[newStringLength];
 	if (this != &rhs) {
 		if (this->string)
@@ -85,9 +85,9 @@ char* String::operator+(const char* rhs)
 }
 
 void String::append(const String& stringToAppend) {
-	size_t newStringLength = strlen(stringToAppend.string) + 1;
+	size_t newStringLength = length(stringToAppend.string) + 1;
 	if (this->string != nullptr) {
-		newStringLength += strlen(string);
+		newStringLength += length(string);
 		char* temp = new char[newStringLength];
 		strcpy_s(temp, newStringLength, string);
 		strcat_s(temp, newStringLength, stringToAppend.string);
@@ -102,9 +102,9 @@ void String::append(const String& stringToAppend) {
 }
 
 char* String::add(const char* rhs) {
-	size_t newStringLength = strlen(rhs) + 1;
+	size_t newStringLength = length(rhs) + 1;
 	if (this->string != nullptr) {
-		newStringLength += strlen(string);
+		newStringLength += length(string);
 		char* temp = new char[newStringLength];
 		strcpy_s(temp, newStringLength, string);
 		strcat_s(temp, newStringLength, rhs);
@@ -117,8 +117,12 @@ char* String::add(const char* rhs) {
 	}
 }
 
-size_t String::length() {
-	return strlen(string);
+int String::length(const char* toLength) {
+	int i = 0;
+	while (toLength[i] != '\0') {
+		i++;
+	}
+	return i;
 }
 
 const char* String::c_str() {
