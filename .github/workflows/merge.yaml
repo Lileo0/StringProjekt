@@ -7,6 +7,8 @@ on:
 
 jobs:
   merge:
+    name: Merger
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Merge
