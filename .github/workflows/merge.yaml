@@ -1,0 +1,24 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  merge:
+    name: Merger
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Config
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "Github Actions"
+      - name: Merge
+        run: |
+          git fetch --unshallow
+          git checkout develop
+          git pull
+          git merge --no-ff master -m "Auto-merge master back to dev"
+          git push
