@@ -1,6 +1,5 @@
 #include "String.h"
 #include <iostream>
-//TESTING
 String::String() {
 	this->string = nullptr;
 }
