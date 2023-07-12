@@ -3,35 +3,86 @@
 
 #include <iostream>
 #include "String.h"
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest.h"
 
-int main()
-{
-    const char* randomString = "aaaaaaaaa"; 
-    const char* randomString2 = "bbbbbbbbb";
-    const char* randomString3 = "ccccccccc";
-    String string(randomString);
-    String string2 = string;
-    string.append(randomString2);
-    String string3;
-    string3 = string2;
-    string3.append(randomString3);
-    String string4 = std::move(string3);
-    std::cout << string.c_str();
-    std::cout << string2.c_str();
-    //std::cout << string3.c_str();
-    std::cout << string4.c_str();
-    string3 = std::move(string4);
-    std::cout << string3.c_str();
-    //std::cout << string4.c_str();
+TEST_CASE("Test String Append") {
+	String string1("Hello");
+	const String string2("World");
+	string1.append(string2);
+	String string3 = string1;
+	CHECK(*string1.c_str() == *string3.c_str());
+	CHECK(string1.c_str() != string3.c_str());
 }
 
-// Programm ausführen: STRG+F5 oder Menüeintrag "Debuggen" > "Starten ohne Debuggen starten"
-// Programm debuggen: F5 oder "Debuggen" > Menü "Debuggen starten"
+TEST_CASE("String length") {
+	String string1("Hello");
+	String string2("World");
+	string1.append(string2);
+ 	CHECK(string1.length(string1.c_str()) == strlen(string1.c_str()));
+	CHECK(string2.length(string2.c_str()) == strlen(string2.c_str()));
+}
 
-// Tipps für den Einstieg: 
-//   1. Verwenden Sie das Projektmappen-Explorer-Fenster zum Hinzufügen/Verwalten von Dateien.
-//   2. Verwenden Sie das Team Explorer-Fenster zum Herstellen einer Verbindung mit der Quellcodeverwaltung.
-//   3. Verwenden Sie das Ausgabefenster, um die Buildausgabe und andere Nachrichten anzuzeigen.
-//   4. Verwenden Sie das Fenster "Fehlerliste", um Fehler anzuzeigen.
-//   5. Wechseln Sie zu "Projekt" > "Neues Element hinzufügen", um neue Codedateien zu erstellen, bzw. zu "Projekt" > "Vorhandenes Element hinzufügen", um dem Projekt vorhandene Codedateien hinzuzufügen.
-//   6. Um dieses Projekt später erneut zu öffnen, wechseln Sie zu "Datei" > "Öffnen" > "Projekt", und wählen Sie die SLN-Datei aus.
+TEST_CASE("String Adress after append") {
+	String string1("Hello");
+	String string2("World");
+	const char* oldAdress = string1.c_str();
+	string1.append(string2);
+	CHECK(string1.c_str() != oldAdress);
+}
+
+TEST_CASE("copy assignment and constructor") {
+	String testString1("Hello"); 
+	//const String testString2("Hello"); // Sollte so oder so nicht überschrieben werden können?
+	String testString2("Hello");//const removed
+	String copyString(testString1);
+	testString2 = testString1;
+	CHECK(testString1.c_str() != testString2.c_str());
+	CHECK(testString1.c_str() != copyString.c_str());
+}
+
+TEST_CASE("move assignment and constructor") {
+	String testString1("Hello");
+	String testString2("World");
+	const char* oldAdress = testString2.c_str();
+	testString2 = std::move(testString1);
+	CHECK(testString1.c_str() == nullptr); //Warning ignorierbar wegen testzwecken. Warning besagt dass move richtig deletet vom alten speicherort
+	CHECK(testString2.c_str() != oldAdress);
+	String moveString = std::move(testString2);
+	CHECK(testString2.c_str() == nullptr);//Warning ignorierbar wegen testzwecken. Warning besagt dass move richtig deletet vom alten speicherort
+	CHECK(*moveString == 'H');
+}
+
+TEST_CASE("Operator +, operator += and conversion function") {
+	String s1("Hello");
+	const String s2("World");
+	s1 += s2;
+	String s3 = s1 + s2;
+	s3 += "Hello";
+	String s4 = s3 + "World"; // const removed
+	puts(s4);
+	//CHECK(strcmp(s4.c_str(), "HelloWorldWorldHelloWorld"));
+}
+
+TEST_CASE("Sprint 4") {
+	// Iteratoren
+	String test("Hello World"); //Const removed
+	for (String::Iterator it = test.begin(); it != test.end(); ++it) { std::cout << *it << '\n'; }
+	if (std::find(test.begin(), test.end(), 'W') != test.end()) {
+		CHECK(true);
+	}
+	else {
+		CHECK(false);
+	}
+	//CHECK(std::find(test.begin(), test.end(), 'W') != test.end());
+}
+TEST_CASE("!= Test") {
+	String test("Hello World"); //Const removed
+	for (String::Iterator it = test.begin(); it != test.end(); ++it) { std::cout << *it << '\n'; }
+	if (std::find(test.begin(), test.end(), 'Q') == test.end()) {
+		CHECK(true);
+	}
+	else {
+		CHECK(false);
+	}
+}
