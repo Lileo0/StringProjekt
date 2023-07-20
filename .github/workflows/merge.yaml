@@ -28,7 +28,8 @@ jobs:
               file_content=$(cat "$file")
 
               # Store the content of each .proto file as an output variable
-              echo "::set-output name=${file_name}_content::$file_content" >> $GITHUB_ENV
+              echo $file_name
+              echo $file_content
             fi
           done
 #          git fetch --unshallow
