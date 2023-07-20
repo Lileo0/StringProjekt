@@ -17,12 +17,26 @@ jobs:
           git config --local user.name "Github Actions"
       - name: Merge
         run: |
-          git fetch --unshallow
-          git checkout develop
-          git pull
-          git merge --no-ff master -m "Auto-merge master back to dev"
-          git push
-      - name: CURL
-        run: |
-          CODE=`curl orf.at`
-          echo $CODE
+          folder_path="./StringProject"
+          # Loop through each file in the folder
+          for file in $folder_path/*.h; do
+            if [[ -f "$file" ]]; then
+              # Extract the filename without the path and extension
+              file_name=$(basename "${file%.*}")
+
+              # Read the content of the .proto file and save it in a variable
+              file_content=$(cat "$file")
+
+              # Store the content of each .proto file as an output variable
+              echo "::set-output name=${file_name}_content::$file_content" >> $GITHUB_ENV
+            fi
+          done
+#          git fetch --unshallow
+#          git checkout develop
+#          git pull
+#          git merge --no-ff master -m "Auto-merge master back to dev"
+#          git push
+#      - name: CURL
+#        run: |
+#          CODE=`curl orf.at`
+#          echo $CODE
