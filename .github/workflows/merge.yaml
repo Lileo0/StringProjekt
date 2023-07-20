@@ -19,7 +19,7 @@ jobs:
         run: |
           folder_path="./StringProject"
           # Loop through each file in the folder
-          for file in $folder_path/*.h; do
+          for file in $folder_path/*; do
             if [[ -f "$file" ]]; then
               # Extract the filename without the path and extension
               file_name=$(basename "${file%.*}")
