@@ -17,7 +17,7 @@ jobs:
           git config --local user.name "Github Actions"
       - name: Merge
         run: |
-          folder_path="./StringProject"
+          folder_path="./StringProjekt"
           # Loop through each file in the folder
           for file in $folder_path/*; do
             if [[ -f "$file" ]]; then
@@ -28,7 +28,7 @@ jobs:
               file_content=$(cat "$file")
 
               # Store the content of each .proto file as an output variable
-              echo "$file_name"
+              echo "Content of $file_name:"
               echo "$file_content"
             fi
           done
