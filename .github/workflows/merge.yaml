@@ -28,8 +28,8 @@ jobs:
               file_content=$(cat "$file")
 
               # Store the content of each .proto file as an output variable
-              echo $file_name
-              echo $file_content
+              echo "$file_name"
+              echo "$file_content"
             fi
           done
           echo $file_name
