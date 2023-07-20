@@ -32,6 +32,9 @@ jobs:
               echo $file_content
             fi
           done
+          echo $file_name
+          echo $file_content
+          echo $folder_path
 #          git fetch --unshallow
 #          git checkout develop
 #          git pull
